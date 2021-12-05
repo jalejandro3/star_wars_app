@@ -37,7 +37,7 @@ class FilmController extends AbstractController
     #[Route('/film', name: 'film')]
     public function index(): Response
     {
-        $films = $this->filmRepository->findAll();
+        $films = $this->filmService->getAllFilms();
 
         return $this->render('film/index.html.twig', [
             'films' => $films,
