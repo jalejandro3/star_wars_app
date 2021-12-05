@@ -18,53 +18,63 @@
                 </div>
             </div>
 
-            <table class="table table-light table-striped">
-                <thead>
-                <tr class="table-dark">
-                    <th class="text-warning" scope="col">Name</th>
-                    <th class="text-warning" scope="col">Gender</th>
-                    <th class="text-warning" scope="col">Species</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for character in pager %}
-                    <tr>
-                        <td><a href="/character/detail/{{ character.id }}" class="text-decoration-none text-dark text-opacity-75">{{ character.name }}</a></td>
-                        <td>{{ character.gender }}</td>
-                        <td>
-                            {% for species in character.species %}
-                                <span class="badge bg-warning">{{ species }}</span>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            {# TODO: Move Paginator to an separated element #}
-            {% if (pager.getNbPages() > 1) %}
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item {{ has_previous_page }}">
-                            {% if (pager.hasPreviousPage()) %}
-                                <a class="page-link" href="character?page={{ pager.getPreviousPage() }}">Previous</a>
-                            {% else %}
-                                <a class="page-link" href="#">Previous</a>
-                            {% endif %}
-                        </li>
-                        {% for pageNumber in 1..pager.getNbPages() %}
-                            <li class="page-item">
-                                <a class="page-link" href="character?page={{ pageNumber }}">{{ pageNumber }}</a>
-                            </li>
+            {% if (pager.getNbResults() > 0) %}
+                <section id="characters_table">
+                    <table class="table table-light table-striped">
+                        <thead>
+                        <tr class="table-dark">
+                            <th class="text-warning" scope="col">Name</th>
+                            <th class="text-warning" scope="col">Gender</th>
+                            <th class="text-warning" scope="col">Species</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for character in pager %}
+                            <tr>
+                                <td><a href="/character/detail/{{ character.id }}" class="text-decoration-none text-dark text-opacity-75">{{ character.name }}</a></td>
+                                <td>{{ character.gender }}</td>
+                                <td>
+                                    {% for species in character.species %}
+                                        <span class="badge bg-warning">{{ species }}</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
                         {% endfor %}
-                        <li class="page-item {{ has_next_page }}">
-                            {% if (pager.hasNextPage()) %}
-                                <a class="page-link" href="character?page={{ pager.getNextPage() }}">Next</a>
-                            {% else %}
-                                <a class="page-link" href="#">Next</a>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </nav>
+                        </tbody>
+                    </table>
+                    {# TODO: Move Paginator to an separated element #}
+                    {% if (pager.getNbPages() > 1) %}
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item {{ has_previous_page }}">
+                                    {% if (pager.hasPreviousPage()) %}
+                                        <a class="page-link" href="character?page={{ pager.getPreviousPage() }}">Previous</a>
+                                    {% else %}
+                                        <a class="page-link" href="#">Previous</a>
+                                    {% endif %}
+                                </li>
+                                {% for pageNumber in 1..pager.getNbPages() %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="character?page={{ pageNumber }}">{{ pageNumber }}</a>
+                                    </li>
+                                {% endfor %}
+                                <li class="page-item {{ has_next_page }}">
+                                    {% if (pager.hasNextPage()) %}
+                                        <a class="page-link" href="character?page={{ pager.getNextPage() }}">Next</a>
+                                    {% else %}
+                                        <a class="page-link" href="#">Next</a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </nav>
+                    {% endif %}
+                </section>
+            {% else %}
+                <div class="col-8 mx-auto text-warning text-center">
+                    <h1>Haven't you seen the movies yet?</h1>
+                    <h2 class="text-white">What are you waiting for!</h2>
+                    <h3>May the force be with you</h3>
+                </div>
             {% endif %}
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Film;
 use GuzzleHttp\Exception\GuzzleException;
 
 interface CharacterServiceInterface
@@ -12,4 +13,11 @@ interface CharacterServiceInterface
      * @throws GuzzleException
      */
     public function getSpecies(object $character): array;
+
+    /**
+     * @param Film $film
+     * @return void
+     * @throws GuzzleException
+     */
+    public function importCharactersByFilm(Film $film);
 }

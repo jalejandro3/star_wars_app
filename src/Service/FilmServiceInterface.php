@@ -8,7 +8,13 @@ use GuzzleHttp\Exception\GuzzleException;
 interface FilmServiceInterface
 {
     /**
-     * @param int $id
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getAllFilms(): array;
+
+    /**
+     * @param int $id Film id
      * @return Film|null
      * @throws GuzzleException
      */
