@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Star Wars Films{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-6 mx-auto mb-5">
+            <div class="p-5 mb-4 bg-black rounded-3 mt-3">
+                <div class="col-6 mx-auto text-center">
+                    <img alt="Archivo:Star Wars Logo.svg"
+                         src="//upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/694px-Star_Wars_Logo.svg.png"
+                         decoding="async"
+                         width="347"
+                         height="210"
+                         srcset="//upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1041px-Star_Wars_Logo.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1388px-Star_Wars_Logo.svg.png 2x"
+                         data-file-width="347"
+                         data-file-height="210">
+                </div>
+            </div>
+
+            <table class="table table-light table-striped">
+                <thead>
+                    <tr class="table-dark">
+                        <th class="text-warning" scope="col">Title</th>
+                        <th class="text-warning" scope="col">Release Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for film in films %}
+                        <tr>
+                            <td><a href="/film/detail/{{ film.id }}" class="text-decoration-none text-dark text-opacity-75">{{ film.title }}</a></td>
+                            <td>{{ film.releaseDate }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
