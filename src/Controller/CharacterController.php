@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Repository\CharacterRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,12 +26,19 @@ class CharacterController extends AbstractController
     }
 
     #[Route('/character', name: 'character')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $characters = $this->characterRepository->findAll();
+        $page = $request->query->get('page') ?: 1;
+        $queryBuilder = $this->characterRepository->createAllCharactersQueryBuilder();
+        $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));
+
+        $pagerfanta->setMaxPerPage(10)
+            ->setCurrentPage($page);
 
         return $this->render('character/index.html.twig', [
-            'characters' => $characters,
+            'pager' => $pagerfanta,
+            'has_previous_page' => !$pagerfanta->hasPreviousPage() ? 'disabled' : '',
+            'has_next_page' => !$pagerfanta->hasNextPage() ? 'disabled' : ''
         ]);
     }
 
