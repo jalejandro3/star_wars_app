@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Star Wars: {{ character.name }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <section id="film_info" class="col-9 mx-auto mt-3 rounded-2 bg-dark bg-opacity-50">
+            <h1 class="text-white">Star Wars: <span class="text-warning">{{ character.name }}</span></h1>
+            <div>
+                <small class="text-warning"><b class="text-white">Gender</b> {{ character.gender }}</small>
+            </div>
+            <div>
+                <small class="text-warning"><b class="text-white">Species</b></small>
+                {% if has_species %}
+                    {% for species in character.species %}
+                        <span class="badge bg-warning">{{ species }}</span>
+                    {% endfor %}
+                {% else %}
+                    <small class="text-warning">N/A</small>
+                {% endif %}
+            </div>
+            <hr>
+        </section>
+
+        <section id="film_characters" class="col-9 mx-auto mt-3 rounded-2 bg-warning">
+            <div class="row">
+                {% for film in character.films %}
+                    <div class="col-4">
+                        <div class="card rounded-3 bg-black mt-3 mb-3" style="width: 18rem;">
+                            <div class="card-body">
+                                <img src="https://1000marcas.net/wp-content/uploads/2019/12/Star-Wars-emblema.jpg" class="card-img-top" alt="star_wars_logo">
+                                <hr class="bg-light">
+                                <h5 class="card-title mt-3 text-center"><a class="text-decoration-none text-white" href="/film/detail/{{ film.id }}">{{ film.title }}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}
