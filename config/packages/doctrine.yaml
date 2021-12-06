@@ -1,6 +1,6 @@
 doctrine:
     dbal:
-        drive: 'pdo_mysql'
+        driver: 'pdo_mysql'
         server_version: '5.7'
         charset: ut8mb4
         default_table_options:
