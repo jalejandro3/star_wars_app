@@ -6,6 +6,7 @@ use App\Client\StarWarsClientInterface;
 use App\Entity\Film;
 use App\Repository\FilmRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 
 class FilmService extends Service implements FilmServiceInterface
 {
@@ -78,10 +79,22 @@ class FilmService extends Service implements FilmServiceInterface
     {
         $film = $this->filmRepository->findOneBy(['id' => $id]);
 
-        if ($film && $film->getCharacters()->count() === 0) {
+        $this->validateFilm($film);
+
+        if ($film->getCharacters()->count() === 0) {
             $this->characterService->importCharactersByFilm($film);
         }
 
         return $film;
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function validateFilm(?Film $film)
+    {
+        if (is_null($film)) {
+            throw new Exception("The Film does not exists.");
+        }
     }
 }
