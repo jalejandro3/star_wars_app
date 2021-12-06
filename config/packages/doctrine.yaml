@@ -2,10 +2,10 @@ doctrine:
     dbal:
         driver: 'pdo_mysql'
         server_version: '5.7'
-        charset: ut8mb4
+        charset: utf8mb4
         default_table_options:
-            charset: ut8mb4
-            collate: ut8mb4_unicode_ci
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         url: '%env(resolve:JAWSDB_URL)%'
 #        url: '%env(resolve:DATABASE_URL)%'
 
