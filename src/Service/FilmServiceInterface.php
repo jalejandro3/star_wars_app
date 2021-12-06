@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Film;
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 
 interface FilmServiceInterface
@@ -17,6 +18,7 @@ interface FilmServiceInterface
      * @param int $id Film id
      * @return Film|null
      * @throws GuzzleException
+     * @throws Exception
      */
     public function getFilmById(int $id): ?Film;
 }
