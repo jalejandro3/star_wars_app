@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <section class="col-3 mx-auto bg-light rounded-3 mt-4">
+            <div class="p-5 mb-4 bg-black rounded-3 mt-3">
+                <div class="mx-auto text-center">
+                    <img alt="Archivo:Star Wars Logo.svg"
+                         src="//upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/694px-Star_Wars_Logo.svg.png"
+                         decoding="async"
+                         width="347"
+                         height="210"
+                         srcset="//upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1041px-Star_Wars_Logo.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1388px-Star_Wars_Logo.svg.png 2x"
+                         data-file-width="347"
+                         data-file-height="210">
+                </div>
+            </div>
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+                <label for="inputEmail">Email</label>
+                <input type="email"
+                       value="{{ last_username }}"
+                       name="email"
+                       id="inputEmail"
+                       class="form-control mb-3"
+                       autocomplete="email" required autofocus>
+                <label for="inputPassword">Password</label>
+                <input type="password"
+                       name="password"
+                       id="inputPassword"
+                       class="form-control mb-3"
+                       autocomplete="current-password" required>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="col-3 mx-auto">
+                    <button class="btn btn-warning mb-3 mx-3" type="submit">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+{% endblock %}
