@@ -1,51 +1,19 @@
-# Star Wars App Tech Test
-
-```A long time ago, in a galaxy far, far away...```
-
-This is an app about Star Wars movies and its characters.
-
-You can see some screenshots of what you will find in it.
-
-
-### Login
-![](readme/img/login.png)
-
-### Films Page
-![](readme/img/films.png)
-
-### Film Detail
-![](readme/img/film_detail.png)
-
-### Empty Character View
-![](readme/img/empty_characters.png)
-
-### Character Table
-![](readme/img/character_table.png)
-
-### Character Detail
-![](readme/img/character_detail.png)
-
-## Some technical specs
-
-1. PHP 7.4
-2. Twig 3
-3. MySQL (or MariaDB)
-
-### ERD
-![](readme/img/ERD.png)
-
-### Use of
-
-   1. Client: Used to retrieve data from swapi.dev API
-      1. StarWarsClientInterface/StarWarsClient.
-   2. Services: Used to contain business logic
-      1. CharacterServiceInterface/CharacterService
-      2. FilmServiceInterface/FilmService
-      3. MailServiceInterface/MailService
-   3. Event/Listener: Used to send an email when the user is logged into the app.
-      1. UserLoggedInEvent
-      2. UserLoggedInListener
-   4. Dependency Injection
-   5. Some S.O.L.I.D., D.R.Y. and K.I.S.S. principles.
-
-Feel free to leave your comments about what you think about the implementation of the code and how to improve it.
+# Star Wars App — PHP Technical Assessment
+ 
+A PHP web application built as a technical interview challenge, consuming the public [SWAPI](https://swapi.dev) API to display Star Wars films and characters.
+ 
+## What this project demonstrates
+ 
+- Interface-based design with dependency injection — all services and clients are defined as contracts, not concrete implementations
+- Separation of concerns — HTTP client, business logic, and presentation are clearly decoupled
+- Event-driven behavior — user login triggers a domain event handled by a dedicated listener, keeping concerns separate
+- Application of SOLID, DRY, and KISS principles throughout the codebase
+ 
+## Tech stack
+ 
+PHP 7.4, Symfony, Twig 3, MySQL
+ 
+## Architecture decisions
+ 
+The app follows a layered approach: a `StarWarsClient` handles all external API communication behind an interface, `CharacterService` and `FilmService` contain business logic independently of the HTTP layer, and a `MailService` is triggered via an event/listener pattern rather than being called directly — keeping the login flow clean and extensible.
+ 
